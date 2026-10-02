@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Comunidade Angolana de Telecomunicações (Na Corrida Para Modernizar Angola)">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Comunidade CAT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: header + hero com conversa de grupo à direita; secções em coluna única de 1080px; regras com checklist que desbloqueia a adesão */
+:root{
+  --bg:#F2F4F1; --surface:#FFFFFF; --ink:#13221E; --muted:#56655F; --line:#D9E0DA;
+  --accent:#0E6E55; --accent-ink:#FFFFFF; --accent-soft:#DCEFE7;
+  --warm:#C9861A; --warm-soft:#F8ECD6;
+  --bubble-in:#FFFFFF; --bubble-out:#D7F0E3; --chat-bg:#E6ECE6;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Figtree", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E1513; --surface:#16201D; --ink:#E6EEEA; --muted:#97A7A0; --line:#27342F;
+  --accent:#3FBF95; --accent-ink:#06120E; --accent-soft:#163A2F;
+  --warm:#E3A847; --warm-soft:#3A2D16;
+  --bubble-in:#1E2A26; --bubble-out:#174033; --chat-bg:#111B18; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1513; --surface:#16201D; --ink:#E6EEEA; --muted:#97A7A0; --line:#27342F;
+  --accent:#3FBF95; --accent-ink:#06120E; --accent-soft:#163A2F;
+  --warm:#E3A847; --warm-soft:#3A2D16;
+  --bubble-in:#1E2A26; --bubble-out:#174033; --chat-bg:#111B18; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--body);padding-inline:16px}
+.wrap{max-width:1080px;margin-inline:auto}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-family:var(--display);line-height:1.1;text-wrap:balance;margin:0}
+p{margin:0}
+
+/* Header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);margin-inline:-16px;padding:12px 16px}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:20px;text-decoration:none;color:var(--ink)}
+.brand-text{display:flex;flex-direction:column;line-height:1.15;min-width:0}
+.brand-text small{font-family:var(--body);font-weight:500;font-size:12.5px;color:var(--muted);letter-spacing:0}
+.brand-text small em{font-style:normal;color:var(--accent)}
+.mark{flex:none;width:34px;height:34px;border-radius:10px 10px 10px 3px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:13px;letter-spacing:.04em}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{color:var(--muted);text-decoration:none;font-weight:500;font-size:14px;padding:6px 10px;border-radius:8px}
+nav a:hover{color:var(--ink);background:var(--surface)}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;padding-block:56px 48px}
+.hero > *{min-width:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.hero h1{font-size:clamp(40px,6vw,68px);font-weight:800;letter-spacing:-.02em}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p.lead{font-size:18px;color:var(--muted);max-width:52ch;margin-top:20px}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 15px var(--body);padding:12px 18px;border-radius:12px;border:1px solid transparent;text-decoration:none;cursor:pointer}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-primary:hover{filter:brightness(1.08)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{background:var(--surface)}
+.btn[aria-disabled="true"]{opacity:.45;pointer-events:none}
+
+/* Chat mock */
+.chat{background:var(--chat-bg);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.chat-head{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--surface);border-bottom:1px solid var(--line)}
+.chat-head .mark{width:30px;height:30px;font-size:11px}
+.chat-head b{display:block;font-size:14px}
+.chat-head small{color:var(--muted);font-size:12px}
+.chat-body{display:flex;flex-direction:column;gap:8px;padding:16px}
+.msg{max-width:82%;padding:8px 12px 6px;border-radius:12px;background:var(--bubble-in);font-size:14px;line-height:1.45;animation:pop .4s ease both}
+.msg.out{align-self:flex-end;background:var(--bubble-out);border-bottom-right-radius:4px}
+.msg.in{border-bottom-left-radius:4px}
+.msg .who{font-weight:600;font-size:12px;color:var(--warm);display:block}
+.msg time{display:block;text-align:right;font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:2px}
+.sys{align-self:center;font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--surface);padding:3px 10px;border-radius:8px}
+.msg:nth-child(2){animation-delay:.1s}.msg:nth-child(3){animation-delay:.25s}.msg:nth-child(4){animation-delay:.4s}.msg:nth-child(5){animation-delay:.55s}
+@keyframes pop{from{transform:translateY(6px)}to{transform:none}}
+@media (prefers-reduced-motion:reduce){.msg{animation:none}}
+
+/* Sections */
+section.block{padding-block:56px;border-top:1px solid var(--line)}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+.sec-head h2{font-size:clamp(28px,4vw,40px);font-weight:700;letter-spacing:-.01em}
+.sec-head p{color:var(--muted);max-width:48ch}
+
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pillar{padding:22px;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+.pillar h3{font-size:20px;margin-bottom:8px}
+.pillar p{color:var(--muted);font-size:15px}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:3px 8px;border-radius:6px;margin-bottom:14px}
+
+/* Avisos + agenda */
+.split{display:grid;grid-template-columns:1.2fr .8fr;gap:28px}
+.split > *{min-width:0}
+.notice{display:grid;grid-template-columns:auto 1fr;gap:14px;padding:18px 0;border-bottom:1px solid var(--line)}
+.notice:first-child{padding-top:0}
+.pill{font-family:var(--mono);font-size:11px;padding:3px 8px;border-radius:6px;height:fit-content;white-space:nowrap}
+.pill.urg{background:var(--warm-soft);color:var(--warm)}
+.pill.info{background:var(--accent-soft);color:var(--accent)}
+.notice h3{font-family:var(--body);font-weight:600;font-size:16px;margin-bottom:4px}
+.notice p{color:var(--muted);font-size:15px}
+.notice time{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.agenda{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px}
+.agenda h3{font-size:18px;margin-bottom:12px}
+.ev{display:grid;grid-template-columns:56px 1fr;gap:14px;padding:12px 0;border-top:1px solid var(--line);align-items:center}
+.ev:first-of-type{border-top:0}
+.date{text-align:center;border-radius:10px;background:var(--accent-soft);color:var(--accent);padding:6px 0;font-variant-numeric:tabular-nums}
+.date b{display:block;font-family:var(--display);font-size:22px;line-height:1}
+.date small{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.ev strong{display:block;font-size:15px}
+.ev span{color:var(--muted);font-size:13px}
+.comunicado{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;display:grid;gap:14px}
+.com-head{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.com-from{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.comunicado h3{font-size:24px}
+.comunicado p{font-size:15.5px;max-width:68ch}
+.topics{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.topics li{padding:8px 12px;border-radius:8px;background:var(--accent-soft);color:var(--ink);font-size:15px}
+.sign{font-weight:600;color:var(--accent)}
+.date.cool{background:var(--warm-soft);color:var(--warm)}
+.date.cool b{font-size:17px}
+.example-note{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:14px}
+
+/* Regras */
+.rules{display:grid;gap:10px;counter-reset:r}
+.rule{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;padding:16px 18px;background:var(--surface);border:1px solid var(--line);border-radius:14px;cursor:pointer;transition:border-color .15s}
+.rule:has(input:checked){border-color:var(--accent)}
+.rule input{width:20px;height:20px;accent-color:var(--accent);margin-top:2px}
+.rule b{display:block;font-size:16px}
+.rule span{color:var(--muted);font-size:14.5px}
+.join{margin-top:24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:20px;border-radius:16px;background:var(--accent-soft)}
+.join p{flex:1 1 260px;font-size:15px}
+.progress{font-family:var(--mono);font-size:13px;color:var(--accent);font-variant-numeric:tabular-nums}
+
+/* FAQ */
+details{border-bottom:1px solid var(--line);padding:16px 0}
+summary{cursor:pointer;font-weight:600;font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::after{content:"+";font-family:var(--mono);color:var(--accent)}
+details[open] summary::after{content:"−"}
+details p{color:var(--muted);margin-top:10px;max-width:68ch}
+
+/* Contacto */
+.contact{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.card{padding:22px;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+.card h3{font-size:18px;margin-bottom:6px}
+.card p{color:var(--muted);font-size:15px}
+.copy{display:flex;gap:8px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.copy code{font-family:var(--mono);font-size:14px;background:var(--bg);padding:8px 10px;border-radius:8px;border:1px solid var(--line);user-select:all;overflow-wrap:anywhere}
+.copy button{font:500 13px var(--body);padding:8px 12px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+
+footer{padding-block:32px 48px;border-top:1px solid var(--line);color:var(--muted);font-size:14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media (max-width:820px){
+  .hero,.split{grid-template-columns:1fr}
+  .hero{padding-block:36px;gap:32px}
+  .pillars,.contact{grid-template-columns:1fr}
+  nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="#inicio"><span class="mark">CAT</span><span class="brand-text">Comunidade CAT<small>Comunidade Angolana de Telecomunicações <em>(Na Corrida Para Modernizar Angola)</em></small></span></a>
+  <nav aria-label="Secções">
+    <a href="#sobre">Sobre</a><a href="#avisos">Avisos</a><a href="#regras">Regras</a><a href="#faq">Perguntas</a><a href="#contacto">Contacto</a>
+  </nav>
+</div></header>
+
+<main class="wrap" id="inicio">
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Grupo comunitário · WhatsApp</p>
+      <h1>Uma comunidade que <em>conversa</em>, partilha e se organiza.</h1>
+      <p class="lead">A Comunidade CAT reúne os membros num grupo de WhatsApp para trocar informação útil, combinar actividades e apoiar-se uns aos outros. Este portal junta num só sítio os avisos, as regras e as respostas às dúvidas mais comuns.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#regras">Quero entrar no grupo</a>
+        <a class="btn btn-ghost" href="#avisos">Ver avisos</a>
+      </div>
+    </div>
+    <div class="chat" aria-label="Exemplo de conversa no grupo">
+      <div class="chat-head"><span class="mark">CAT</span><div><b>Comunidade CAT</b><small>Grupo · membros activos</small></div></div>
+      <div class="chat-body">
+        <span class="sys">Hoje</span>
+        <div class="msg in"><span class="who">Coordenação</span>Bom dia a todos. A reunião mensal fica marcada para sábado às 10h00. Agenda no portal.<time>08:12</time></div>
+        <div class="msg in"><span class="who">Membro</span>Obrigado. Posso levar a proposta das actividades para o próximo trimestre?<time>08:20</time></div>
+        <div class="msg out">Claro, envie antes por aqui para todos lerem.<time>08:24</time></div>
+        <div class="msg in"><span class="who">Membro</span>Confirmo presença 👍<time>08:31</time></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="sobre">
+    <div class="sec-head"><h2>Sobre a comunidade</h2><p>Três coisas que o grupo faz pelos seus membros.</p></div>
+    <div class="pillars">
+      <article class="pillar"><span class="tag">Informar</span><h3>Avisos que chegam a todos</h3><p>Comunicados da coordenação, prazos e novidades partilhados no grupo e arquivados aqui para consulta.</p></article>
+      <article class="pillar"><span class="tag">Organizar</span><h3>Encontros e actividades</h3><p>Reuniões, eventos e acções da comunidade combinados com data, hora e local definidos.</p></article>
+      <article class="pillar"><span class="tag">Apoiar</span><h3>Entreajuda entre membros</h3><p>Um espaço para pedir ajuda, partilhar contactos úteis e oportunidades com quem faz parte.</p></article>
+    </div>
+  </section>
+
+  <section class="block" id="avisos">
+    <div class="sec-head"><h2>Avisos e agenda</h2><p>O que está a acontecer na comunidade.</p></div>
+    <div class="split">
+      <div>
+        <article class="comunicado">
+          <div class="com-head"><span class="pill urg">Importante</span><span class="com-from">Coordenação · Comunidade CAT</span></div>
+          <h3>Comunicado Importante à Comunidade</h3>
+          <p>Bom dia, estimados membros.</p>
+          <p>Informamos que, a partir do dia <strong>12 de Outubro</strong>, a nossa comunidade entrará numa nova fase de desenvolvimento e crescimento, com um foco ainda maior na partilha de conhecimento e na evolução técnica dos seus membros.</p>
+          <p>Nesse sentido, deixarão de ser permitidos anúncios de venda de produtos, bem como a publicação de imagens, vídeos ou conteúdos sem relação direta com os novos objetivos técnicos da comunidade.</p>
+          <p>A partir desta data, a janela principal de conversação será exclusivamente destinada a:</p>
+          <ul class="topics">
+            <li>Discussões técnicas;</li>
+            <li>Partilha de conhecimentos e experiências;</li>
+            <li>Exposição de temas tecnológicos;</li>
+            <li>Resolução de problemas e desafios técnicos;</li>
+            <li>Debates relacionados com telecomunicações, redes, sistemas e tecnologias associadas.</li>
+          </ul>
+          <p>Para permitir uma reorganização adequada do grupo, a mudança das regras e da sua descrição, entre os dias <strong>10 e 11 de Outubro</strong>, as conversações estarão temporariamente desativadas. Este período será utilizado para a implementação de uma fase de reorganização e adaptação, denominada <strong>"Cool Down Mode"</strong>, preparando o regresso da comunidade com uma nova visão e um propósito mais definido.</p>
+          <p>Esta decisão foi tomada com o objetivo de elevar o nível técnico das nossas interações, promover uma aprendizagem mais estruturada e fortalecer a compreensão dos diversos temas ligados aos Sistemas de Telecomunicações e às Tecnologias de Informação.</p>
+          <p>Agradecemos sinceramente a compreensão, a colaboração e o compromisso de todos os membros durante este processo de transformação.</p>
+          <p class="sign">Juntos, construiremos uma comunidade mais forte, mais técnica e mais orientada para o conhecimento.</p>
+        </article>
+      </div>
+      <aside class="agenda" aria-label="Datas do comunicado">
+        <h3>Datas a reter</h3>
+        <div class="ev"><div class="date cool"><b>10–11</b><small>out</small></div><div><strong>Cool Down Mode</strong><span>Conversações desativadas · reorganização do grupo, regras e descrição</span></div></div>
+        <div class="ev"><div class="date"><b>12</b><small>out</small></div><div><strong>Nova fase da comunidade</strong><span>Janela principal exclusiva para temas técnicos</span></div></div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="block" id="regras">
+    <div class="sec-head"><h2>Regras do grupo</h2><p>Leia e marque cada regra para desbloquear o pedido de adesão.</p></div>
+    <div class="rules" id="rules">
+      <label class="rule"><input type="checkbox" id="r1"><div><b>Respeito acima de tudo</b><span>Sem insultos, ataques pessoais ou linguagem ofensiva, dentro e fora do grupo.</span></div></label>
+      <label class="rule"><input type="checkbox" id="r2"><div><b>Mantenha-se no tema</b><span>Partilhe conteúdo útil para a comunidade. Política partidária, correntes e spam não são permitidos.</span></div></label>
+      <label class="rule"><input type="checkbox" id="r3"><div><b>Sem publicidade sem autorização</b><span>Vendas e promoções só com acordo prévio da coordenação.</span></div></label>
+      <label class="rule"><input type="checkbox" id="r4"><div><b>Proteja a privacidade dos membros</b><span>Não partilhe números, fotos ou conversas do grupo fora dele sem consentimento.</span></div></label>
+      <label class="rule"><input type="checkbox" id="r5"><div><b>Horário de mensagens</b><span>Evite mensagens entre as 22h00 e as 07h00, salvo urgências.</span></div></label>
+    </div>
+    <div class="join">
+      <p><span class="progress" id="progress">0 de 5 regras aceites</span><br>Depois de aceitar todas, peça a adesão. A coordenação aprova os novos membros.</p>
+      <a class="btn btn-primary" id="joinBtn" href="#contacto" aria-disabled="true">Pedir adesão ao grupo</a>
+    </div>
+  </section>
+
+  <section class="block" id="faq">
+    <div class="sec-head"><h2>Perguntas frequentes</h2></div>
+    <details><summary>Quem pode entrar na Comunidade CAT?</summary><p>Pessoas ligadas à comunidade que aceitem as regras do grupo. Cada pedido é confirmado pela coordenação antes da adesão.</p></details>
+    <details><summary>Como recebo o link de convite?</summary><p>Depois de aceitar as regras, contacte a coordenação pelo número indicado em baixo. O link é enviado por mensagem privada.</p></details>
+    <details><summary>Posso sair e voltar mais tarde?</summary><p>Sim. Para regressar, faça um novo pedido de adesão à coordenação.</p></details>
+    <details><summary>O que acontece se alguém não cumprir as regras?</summary><p>Primeiro recebe um aviso privado. Em caso de repetição, pode ser removido do grupo pela coordenação.</p></details>
+  </section>
+
+  <section class="block" id="contacto">
+    <div class="sec-head"><h2>Contacto</h2><p>Fale com a coordenação para aderir ou tirar dúvidas.</p></div>
+    <div class="contact">
+      <div class="card"><h3>Coordenação</h3><p>Pedidos de adesão, sugestões e assuntos do grupo.</p>
+        <div class="copy"><code id="phone">+244 9XX XXX XXX</code><button type="button" data-copy="phone">Copiar</button></div></div>
+      <div class="card"><h3>E-mail</h3><p>Para documentos e propostas mais longas.</p>
+        <div class="copy"><code id="mail">comunidadecat@exemplo.com</code><button type="button" data-copy="mail">Copiar</button></div></div>
+    </div>
+  </section>
+
+  <footer><span>© 2026 Comunidade CAT</span><span>Portal do grupo comunitário</span></footer>
+</main>
+
+<script>
+(function(){
+  var boxes=[].slice.call(document.querySelectorAll('#rules input'));
+  var prog=document.getElementById('progress'), btn=document.getElementById('joinBtn');
+  function update(){
+    var n=boxes.filter(function(b){return b.checked}).length;
+    prog.textContent=n+' de '+boxes.length+' regras aceites';
+    btn.setAttribute('aria-disabled', n===boxes.length?'false':'true');
+  }
+  boxes.forEach(function(b){b.addEventListener('change',update)}); update();
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var el=document.getElementById(b.dataset.copy), t=el.textContent;
+      function sel(){var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Seleccionado';}
+      try{navigator.clipboard.writeText(t).then(function(){b.textContent='Copiado'},sel)}catch(e){sel()}
+      setTimeout(function(){b.textContent='Copiar'},1800);
+    });
+  });
+})();
+</script>
+</body>
+</html>
